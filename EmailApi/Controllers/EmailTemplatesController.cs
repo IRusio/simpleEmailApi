@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace EmailApi.Controllers
@@ -12,6 +13,11 @@ namespace EmailApi.Controllers
         public EmailTemplatesController(ILogger<EmailController> logger)
         {
             _logger = logger;
+        }
+
+        public async Task AddNewTemplate()
+        {
+            
         }
     }
 }
