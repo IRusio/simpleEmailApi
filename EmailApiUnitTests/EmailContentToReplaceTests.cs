@@ -56,7 +56,7 @@ namespace EmailApiUnitTests
         {
             //Arrange
             //Act
-            var data = await MailKitService.ReplaceTemplateValueContent(input, replacements);
+            var data = MailKitService.ReplaceTemplateValueContent(input, replacements);
             //Assert
             Assert.Equal(data, expectedString);
         }

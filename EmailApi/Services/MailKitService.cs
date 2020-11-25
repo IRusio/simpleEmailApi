@@ -41,8 +41,8 @@ namespace EmailApi.Services
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(fromEmail));
             email.To.Add(MailboxAddress.Parse(toEmail));
-            email.Subject = subject;
-            email.Body = new TextPart(TextFormat.Plain) { Text = body};
+            email.Subject = ReplaceTemplateValueContent(subject, contextToFill);
+            email.Body = new TextPart(TextFormat.Plain) { Text = ReplaceTemplateValueContent(body, contextToFill)};
             return email;
         }
 
@@ -52,7 +52,7 @@ namespace EmailApi.Services
         /// <param name="text"></param>
         /// <param name="contentToFill"></param>
         /// <returns></returns>
-        public static async Task<string> ReplaceTemplateValueContent(string text, Dictionary<string, string> contentToFill)
+        public static string ReplaceTemplateValueContent(string text, Dictionary<string, string> contentToFill)
         {
             var findValueInText = new Regex(@"{{([a-zA-Z]*)}}");
             var foundValuesToReplace = findValueInText.Matches(text);

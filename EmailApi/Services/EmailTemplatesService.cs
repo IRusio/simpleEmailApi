@@ -26,6 +26,11 @@ namespace EmailApi.Services
             return result.Entity;
         }
 
+        public async Task<Template> GetTemplateByIdAsync(int templateId)
+        {
+            return await _context.Templates.SingleOrDefaultAsync(x => x.Id == templateId);
+        }
+
         public Task<List<Template>> GetTemplatesAsync()
         {
             return _context.Templates.ToListAsync();

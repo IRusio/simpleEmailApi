@@ -29,6 +29,12 @@ namespace EmailApi.Controllers
             return Ok(await _emailTemplatesService.AddTemplateAsync(template));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTemplateById(int id)
+        {
+            return Ok(await _emailTemplatesService.GetTemplateByIdAsync(id));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetTemplates()
         {

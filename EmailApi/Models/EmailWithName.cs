@@ -2,7 +2,7 @@
 
 namespace EmailApi.Models
 {
-    public class Email
+    public class EmailWithName
     {
         [Required]
         [EmailAddress]
@@ -10,10 +10,7 @@ namespace EmailApi.Models
 
         [Required]
         public int TemplateId { get; set; }
-        
-
-        public Email()
-        {
-        }
+        [Required]
+        public string Name { get; set; }
     }
 }

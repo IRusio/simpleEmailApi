@@ -16,7 +16,7 @@ namespace EmailApi.Services
             _context = context;
         }
         
-        public async Task AddSendMessage(string email, int templateId, string subject, string body)
+        public async Task AddSendMessageToHistory(string email, int templateId, string subject, string body)
         {
             var template = await _context.Templates.SingleOrDefaultAsync(x => x.Id == templateId);
             var historyEntity = new EmailHistory(email, subject, body, DateTime.Now, template);
