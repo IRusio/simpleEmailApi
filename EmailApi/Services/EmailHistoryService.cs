@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EmailApi.Db;
 using EmailApi.Models;
@@ -27,6 +28,11 @@ namespace EmailApi.Services
         public async Task<IEnumerable<EmailHistory>> GetEmailHistory()
         {
             return await _context.EmailHistory.ToListAsync();
+        }
+
+        public async Task<IEnumerable<EmailHistory>> GetEmailHistoryByEmailReceiver(string userEmail)
+        {
+            return await _context.EmailHistory.Where(x => x.ReceiverEmailAddress == userEmail).ToListAsync();
         }
     }
 }

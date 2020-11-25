@@ -50,5 +50,12 @@ namespace EmailApi.Controllers
             var result = await _emailHistoryService.GetEmailHistory();
             return Ok(result);
         }
+        
+        [HttpGet("{userEmail}")]
+        public async Task<IActionResult> GetEmailHistory(string userEmail)
+        {
+            var result = await _emailHistoryService.GetEmailHistoryByEmailReceiver(userEmail);
+            return Ok(result);
+        }
     }
 }
