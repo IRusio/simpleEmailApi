@@ -21,13 +21,32 @@ namespace EmailApi
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File(new RenderedCompactJsonFormatter(), "/logs/log.json")
+                .WriteTo.File(new RenderedCompactJsonFormatter(), "/logs/logs.json")
                 .CreateLogger();
         
             try
             {
                 Log.Information("Starting up");
-                CreateHostBuilder(args).Build().Run();
+                var host = CreateHostBuilder(args).ConfigureAppConfiguration(
+                    (hostContext, builder) =>
+                    {
+                        builder.AddUserSecrets<Program>();
+                    }
+                ).Build();
+                using (var scope = host.Services.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetService<EmailContext>();
+                    dbContext?.Database.Migrate();
+
+                    var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+                    if (env.IsDevelopment())
+                    {
+                        // Seed the database in development mode
+                        var dbInitializer = scope.ServiceProvider.GetRequiredService<Db.IDbContextInitializer>();
+                        dbInitializer.Seed().GetAwaiter().GetResult();
+                    }
+                }
+                host.Run();
             }
             catch (Exception ex)
             {
@@ -38,26 +57,7 @@ namespace EmailApi
                 Log.CloseAndFlush();
             }
             
-            var host = CreateHostBuilder(args).ConfigureAppConfiguration(
-                (hostContext, builder) =>
-                {
-                    builder.AddUserSecrets<Program>();
-                }
-                ).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetService<EmailContext>();
-                dbContext?.Database.Migrate();
 
-                var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
-                if (env.IsDevelopment())
-                {
-                    // Seed the database in development mode
-                    var dbInitializer = scope.ServiceProvider.GetRequiredService<Db.IDbContextInitializer>();
-                    dbInitializer.Seed().GetAwaiter().GetResult();
-                }
-            }
-            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
