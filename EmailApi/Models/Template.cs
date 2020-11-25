@@ -12,7 +12,19 @@ namespace EmailApi.Models
         public string Subject { get; set; }
         [Required]
         public string Body { get; set; }
-        [NotMapped]
-        public Dictionary<string, string> FieldsRequiredInTemplate { get; set; } = new Dictionary<string, string>();
+        //TODO: Possible extension to return data whos are required to fill expectedValue 
+        //[NotMapped]
+        //public Dictionary<string, string> FieldsRequiredInTemplate { get; set; } = new Dictionary<string, string>();
+
+        public Template()
+        {
+        }
+
+        public Template(string templateName, string subject, string body)
+        {
+            TemplateName = templateName;
+            Subject = subject;
+            Body = body;
+        }
     }
 }

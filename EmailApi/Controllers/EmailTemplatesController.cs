@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EmailApi.Db;
 using EmailApi.Models;
 using EmailApi.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -22,15 +24,41 @@ namespace EmailApi.Controllers
         }
 
         [HttpPost]
-        public async Task AddNewTemplate()
+        public async Task<IActionResult> AddNewTemplate(RawTemplate template)
         {
-            
+            return Ok(await _emailTemplatesService.AddTemplateAsync(template));
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Template>> GetTemplates()
+        public async Task<IActionResult> GetTemplates()
         {
-            return _emailTemplatesService.GetTemplates();
+            return Ok(await _emailTemplatesService.GetTemplatesAsync());
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateTemplate(Template template)
+        {
+            try
+            {
+                var result = await _emailTemplatesService.EditTemplateAsync(template);
+                return Ok(result);
+            }
+            catch (BadHttpRequestException e)
+            {
+                return NoContent();
+            }
+        }
+
+        [HttpDelete("{templateId}")]
+        public async Task<IActionResult> DeleteTemplate(int templateId)
+        {
+            var result = await _emailTemplatesService.DeleteTemplate(templateId);
+            if (!result)
+            {
+                return NoContent();
+            }
+
+            return Ok();
         }
     }
 }

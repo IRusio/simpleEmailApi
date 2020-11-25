@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using EmailApi.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EmailApi.Services
 {
     public interface IEmailTemplatesService
     {
-        public Template AddTemplate(RawTemplate template);
+        public Task<Template> AddTemplateAsync(RawTemplate template);
         //Possible task. Pagination etc.
-        public IEnumerable<Template> GetTemplates();
-        public Template EditTemplate(Template template);
-        public bool DeleteTemplate(int templateId);
+        public Task<List<Template>> GetTemplatesAsync();
+        public Task<Template> EditTemplateAsync(Template template);
+        public Task<bool> DeleteTemplate(int templateId);
     }
 }
