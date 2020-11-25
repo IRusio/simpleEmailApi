@@ -59,12 +59,7 @@ namespace EmailApi.Controllers
         public async Task<IActionResult> DeleteTemplate(int templateId)
         {
             var result = await _emailTemplatesService.DeleteTemplate(templateId);
-            if (!result)
-            {
-                return NoContent();
-            }
-
-            return Ok();
+            return !result? (IActionResult) NoContent(): Ok();
         }
     }
 }

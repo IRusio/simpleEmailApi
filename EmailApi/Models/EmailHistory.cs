@@ -20,7 +20,7 @@ namespace EmailApi.Models
         public Template Template { get; set; }
         public int SendStatus { get; set; }
 
-            public EmailHistory(string receiverEmailAddress, string subject, string body, DateTime sendDate, Template template, int sendStatus = 0)
+        public EmailHistory(string receiverEmailAddress, string subject, string body, DateTime sendDate, Template template, int sendStatus = 0)
         {
             ReceiverEmailAddress = receiverEmailAddress;
             Subject = subject;
