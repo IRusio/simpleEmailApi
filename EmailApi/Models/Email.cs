@@ -11,5 +11,9 @@ namespace EmailApi.Models
         {
             EmailAddress = emailAddress;
         }
+
+        public Email()
+        {
+        }
     }
 }
