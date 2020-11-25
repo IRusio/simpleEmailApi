@@ -10,6 +10,7 @@ using EmailApi.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Serilog.Formatting.Compact;
 
 namespace EmailApi
 {
@@ -20,6 +21,7 @@ namespace EmailApi
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
+                .WriteTo.File(new RenderedCompactJsonFormatter(), "/logs/log.json")
                 .CreateLogger();
         
             try
