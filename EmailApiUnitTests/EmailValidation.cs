@@ -8,7 +8,7 @@ namespace EmailApiUnitTests
         [InlineData("abc@gmail.com", true)]
         [InlineData("XD", false)]
         [InlineData("test_test@a.gh", true)]
-        public void Check_Email_Valid(string input, bool expexted)
+        public void Check_Is_Email_Valid(string input, bool expexted)
         {
         }
         
