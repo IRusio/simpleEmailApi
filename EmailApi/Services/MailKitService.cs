@@ -22,9 +22,11 @@ namespace EmailApi.Services
         {
             try
             {
+                var login = _configuration["Email:email"];
+                var password = _configuration["Email:password"];
                 using var smtp = new SmtpClient();
-                await smtp.ConnectAsync(_configuration["Email:server"], int.Parse(_configuration["Email:port"]), SecureSocketOptions.Auto);
-                await smtp.AuthenticateAsync(_configuration["Email:email"], _configuration["Email:password"]);
+                await smtp.ConnectAsync(_configuration["Email:server"], int.Parse(_configuration["Email:port"]), SecureSocketOptions.StartTlsWhenAvailable);
+                await smtp.AuthenticateAsync(login, password);
                 await smtp.SendAsync(message);
                 await smtp.DisconnectAsync(true);
                 return true;

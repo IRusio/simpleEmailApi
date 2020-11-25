@@ -37,24 +37,18 @@ namespace EmailApi.Controllers
                 return NoContent();
             var message = await _emailService.PrepareMessage(_configuration["Email:email"], email.EmailAddress, template.Subject,
                 template.Body, new Dictionary<string, string>() {{"name", email.Name}});
-            await _emailService.SendEmailAsync(message);
-            await _emailHistoryService.AddSendMessageToHistory(email.EmailAddress, email.TemplateId, message.Subject, message.TextBody);
+            var result = await _emailService.SendEmailAsync(message);
+            if (result == false)
+                return BadRequest("Possible errors with login etc. Possible not correct credentials.");
+            await _emailHistoryService.AddMessage(email.EmailAddress, email.TemplateId, message.Subject, message.TextBody);
             return Ok();
         }
-        
-        // [HttpPost]
-        // public async Task<IActionResult> SendEmail([FromBody]Email email,[FromBody] Dictionary<string, string> parametersToReplace)
-        // {
-        //     var template = await _templatesService.GetTemplateByIdAsync(email.TemplateId);
-        //     if (template == null)
-        //         return NoContent();
-        //     
-        //     //currently is support only name especially for this task. If u want to do sth more, its simple must prepare 
-        //     var message = await _emailService.PrepareMessage(_configuration["Email:email"], email.EmailAddress, template.Subject,
-        //         template.Body, parametersToReplace);
-        //     await _emailService.SendEmailAsync(message);
-        //     await _emailHistoryService.AddSendMessageToHistory(email.EmailAddress, email.TemplateId, message.Subject, message.Body.ToString());
-        //     return Ok();
-        // }
+
+        [HttpGet]
+        public async Task<IActionResult> GetEmailHistory()
+        {
+            var result = await _emailHistoryService.GetEmailHistory();
+            return Ok(result);
+        }
     }
 }

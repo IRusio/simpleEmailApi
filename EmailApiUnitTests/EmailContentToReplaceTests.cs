@@ -11,41 +11,41 @@ namespace EmailApiUnitTests
         {
             new object[]
             {
-                "lalala {{text}} fdasfdas",
+                "foo {{text}} bar",
                 new Dictionary<string, string>()
                 {
                     {"text", "text"}
                 },
-                "lalala text fdasfdas"
+                "foo text bar"
             },
             new object[]
             {
-                "lalala {{test}} fdasfdas",
+                "foo {{test}} bar",
                 new Dictionary<string, string>()
                 {
                     {"text", "text"}
                 },
-                "lalala  fdasfdas"
+                "foo  bar"
             },
             new object[]
             {
-                "lalala {{test}} fdasfdas",
+                "foo {{test}} bar",
                 new Dictionary<string, string>()
                 {
                     {"text", "text"},
                     {"test", "test"}
                 },
-                "lalala test fdasfdas"
+                "foo test bar"
             },
             new object[]
             {
-                "lalala {{test}} fdasfdas {text} {{text}}",
+                "foo {{test}} bar {text} {{text}}",
                 new Dictionary<string, string>()
                 {
                     {"text", "text"},
                     {"test", "test"}
                 },
-                "lalala test fdasfdas {text} text"
+                "foo test bar {text} text"
             }
         };
 

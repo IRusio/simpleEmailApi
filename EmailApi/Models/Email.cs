@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmailApi.Models
 {
@@ -10,6 +11,8 @@ namespace EmailApi.Models
 
         [Required]
         public int TemplateId { get; set; }
+        [Required] 
+        public Dictionary<string, string> ParametersToReplace { get; set; }
         
 
         public Email()
