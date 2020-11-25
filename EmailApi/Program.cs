@@ -16,11 +16,16 @@ namespace EmailApi
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).ConfigureAppConfiguration(
+                (hostContext, builder) =>
+                {
+                    builder.AddUserSecrets<Program>();
+                }
+                ).Build();
             using (var scope = host.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetService<EmailContext>();
-                dbContext.Database.Migrate();
+                dbContext?.Database.Migrate();
 
                 var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
                 if (env.IsDevelopment())

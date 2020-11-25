@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace EmailApi.Models
 {
@@ -16,7 +17,21 @@ namespace EmailApi.Models
         [Required]
         public DateTime SendDate { get; set; }
         [Required]
-        public string TemplateId { get; set; }
+        public Template Template { get; set; }
         public int SendStatus { get; set; }
+
+            public EmailHistory(string receiverEmailAddress, string subject, string body, DateTime sendDate, Template template, int sendStatus = 0)
+        {
+            ReceiverEmailAddress = receiverEmailAddress;
+            Subject = subject;
+            Body = body;
+            Template = template;
+            SendDate = sendDate;
+            SendStatus = sendStatus;
+        }
+
+        public EmailHistory()
+        {
+        }
     }
 }
