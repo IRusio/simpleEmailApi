@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EmailApi.Models;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace EmailApi.Services
+namespace EmailApi.Application
 {
-    public interface IEmailTemplatesService
+    public interface IEmailTemplatesRepository
     {
         public Task<Template> AddTemplateAsync(RawTemplate template);
 

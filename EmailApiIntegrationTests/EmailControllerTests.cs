@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using EmailApi;
 using EmailApi.Models;
-using EmailApi.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;

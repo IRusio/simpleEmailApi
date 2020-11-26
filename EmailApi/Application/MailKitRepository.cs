@@ -8,12 +8,12 @@ using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
 
-namespace EmailApi.Services
+namespace EmailApi.Application
 {
-    public class MailKitService : IEmailService
+    public class MailKitRepository : IEmailRepository
     {
         private readonly IConfiguration _configuration;
-        public MailKitService(IConfiguration configuration)
+        public MailKitRepository(IConfiguration configuration)
         {
             this._configuration = configuration;
         }

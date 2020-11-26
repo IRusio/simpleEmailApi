@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EmailApi.Services;
+using EmailApi.Application;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
@@ -17,7 +17,7 @@ namespace EmailApiUnitTests
         public async Task EmailContentBuilder(string email, string subject, string body, string expectedBody)
         {
             //Arrange
-            var emailService = new MailKitService(new ConfigurationBuilder().Build());
+            var emailService = new MailKitRepository(new ConfigurationBuilder().Build());
             var messageToCompare = new MimeMessage();
             messageToCompare.From.Add(MailboxAddress.Parse(email));
             messageToCompare.To.Add(MailboxAddress.Parse(email));

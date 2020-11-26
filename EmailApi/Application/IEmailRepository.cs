@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MimeKit;
 
-namespace EmailApi.Services
+namespace EmailApi.Application
 {
-    public interface IEmailService
+    public interface IEmailRepository
     {
         public Task<bool> SendEmailAsync(MimeMessage message);
 

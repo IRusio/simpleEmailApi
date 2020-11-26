@@ -6,13 +6,13 @@ using EmailApi.Db;
 using EmailApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmailApi.Services
+namespace EmailApi.Application
 {
-    public class EmailHistoryService : IEmailHistoryService
+    public class EmailHistoryRepository : IEmailHistoryRepository
     {
         private readonly EmailContext _context;
 
-        public EmailHistoryService(EmailContext context)
+        public EmailHistoryRepository(EmailContext context)
         {
             _context = context;
         }

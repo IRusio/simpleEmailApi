@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EmailApi.Application;
 using EmailApi.Db;
 using EmailApi.Models;
-using EmailApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,30 +15,30 @@ namespace EmailApi.Controllers
     public class EmailTemplatesController : ControllerBase
     {
         private readonly ILogger<EmailController> _logger;
-        private readonly EmailTemplatesService _emailTemplatesService;
+        private readonly EmailTemplatesRepository _emailTemplatesRepository;
 
         public EmailTemplatesController(ILogger<EmailController> logger, EmailContext context)
         {
             _logger = logger;
-            _emailTemplatesService = new EmailTemplatesService(context);
+            _emailTemplatesRepository = new EmailTemplatesRepository(context);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddNewTemplate(RawTemplate template)
         {
-            return Ok(await _emailTemplatesService.AddTemplateAsync(template));
+            return Ok(await _emailTemplatesRepository.AddTemplateAsync(template));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTemplateById(int id)
         {
-            return Ok(await _emailTemplatesService.GetTemplateByIdAsync(id));
+            return Ok(await _emailTemplatesRepository.GetTemplateByIdAsync(id));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetTemplates()
         {
-            return Ok(await _emailTemplatesService.GetTemplatesAsync());
+            return Ok(await _emailTemplatesRepository.GetTemplatesAsync());
         }
 
         [HttpPut]
@@ -46,7 +46,7 @@ namespace EmailApi.Controllers
         {
             try
             {
-                var result = await _emailTemplatesService.EditTemplateAsync(template);
+                var result = await _emailTemplatesRepository.EditTemplateAsync(template);
                 return Ok(result);
             }
             catch (BadHttpRequestException e)
@@ -58,7 +58,7 @@ namespace EmailApi.Controllers
         [HttpDelete("{templateId}")]
         public async Task<IActionResult> DeleteTemplate(int templateId)
         {
-            var result = await _emailTemplatesService.DeleteTemplate(templateId);
+            var result = await _emailTemplatesRepository.DeleteTemplate(templateId);
             return !result? (IActionResult) NoContent(): Ok();
         }
     }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EmailApi.Services;
+using EmailApi.Application;
 using Xunit;
 
 namespace EmailApiUnitTests
@@ -56,7 +56,7 @@ namespace EmailApiUnitTests
         {
             //Arrange
             //Act
-            var data = MailKitService.ReplaceTemplateValueContent(input, replacements);
+            var data = MailKitRepository.ReplaceTemplateValueContent(input, replacements);
             //Assert
             Assert.Equal(data, expectedString);
         }

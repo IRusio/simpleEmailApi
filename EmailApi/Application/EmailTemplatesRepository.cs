@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using EmailApi.Db;
 using EmailApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmailApi.Services
+namespace EmailApi.Application
 {
-    public class EmailTemplatesService : IEmailTemplatesService
+    public class EmailTemplatesRepository : IEmailTemplatesRepository
     {
         private readonly EmailContext _context;
 
-        public EmailTemplatesService(EmailContext context)
+        public EmailTemplatesRepository(EmailContext context)
         {
             _context = context;
         }
