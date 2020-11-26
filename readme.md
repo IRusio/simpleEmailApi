@@ -10,6 +10,11 @@
 ## Config
 
 Configure your own connection string in appsetings.json
+then type:
+
+```powershell
+dotnet ef database update
+```
 
 Type in console:
 
